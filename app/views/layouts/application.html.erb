@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CloudArchive</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if current_user %>
+      <ul>
+        <li><p><%= current_user.fio %></p></li>
+        <li><p><%= link_to 'Ваше хранилище', '/' if current_user.is_super_user %></p></li>
+        <li><p><%= link_to 'Список пользователей', :admin_index if current_user.is_super_user %></p></li>
+        <li><p><%= link_to  'Список всех фалов системы', :admin_all_files if current_user.is_super_user %></p></li>
+        <li><p><%= link_to  'Отчистить кэш', '#', id: 'clean_cache_btn', onclick: 'send_clean_cache()' if current_user.is_super_user %></p></li>
+        <li style="float:right"><p><%= link_to "Выход", destroy_user_session_path, :method => :delete %></p></li>
+      </ul>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>

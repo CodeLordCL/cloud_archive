@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Пользователи</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Фамилия</th>
+      <th>Имя</th>
+      <th>Отчество</th>
+      <th>Дата рождения</th>
+      <th>Адрес электронной почты</th>
+      <th>Дата регистрации</th>
+      <th>Дата последнего изменения</th>
+      <th>Это суперпользователь?</th>
+      <th colspan="8"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.last_name %></td>
+        <td><%= user.first_name %></td>
+        <td><%= user.middle_name %></td>
+        <td><%= user.birth_date %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created_at %></td>
+        <td><%= user.updated_at %></td>
+        <td><%= user.is_super_user %></td>
+        <td><%= link_to 'Изенить пользователя', "/admin/#{ user.id }/edit" %></td>
+        <td><%= link_to 'Удалить пользователя', "/admin/#{ user.id }", method: :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to "Зарегистрировать нового пользователя", '/admin/new' %>

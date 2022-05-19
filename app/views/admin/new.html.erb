@@ -1,0 +1,53 @@
+<%
+case params[:action]
+when 'new'
+  method = :post
+  url = '/admin'
+  header = 'Регистрация'
+  submit = 'Зарегистрировать пользователя'
+when 'edit'
+  method = :put
+  url = "/admin/#{@user.id}"
+  header = "Изенение пользователя #{@user.fio}"
+  submit = 'Изменить параметры пользователя'
+end
+%>
+
+<h2><%= header %></h2>
+
+<%= form_with(model: @user, url: url, method: method) do |f| %>
+
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name, autofocus: true, autocomplete: "Фамилия" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name, autofocus: true, autocomplete: "Имя" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :middle_name %><br />
+    <%= f.text_field :middle_name, autofocus: true, autocomplete: "Отчетсво" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :birth_date %><br />
+    <%= f.date_field :birth_date, autofocus: true, autocomplete: "Дата рожденяи" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "Адрес электронной почты" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit submit %>
+  </div>
+<% end %>

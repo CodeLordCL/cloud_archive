@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Имя:</strong>
+  <%= @user_file.file_name %>
+</p>
+
+<p>
+  <strong>Тип:</strong>
+  <%= @user_file.file_type %>
+</p>
+
+<p>
+  <strong>Размер:</strong>
+  <%= @user_file.file_size %>
+</p>
+
+<p>
+  <strong>Визуальное представление фалйа:</strong>
+</p>
+
+<p>
+  <%= image_tag(@user_file.file_image.url, alt: 'Image') if @user_file.file_image? && @user_file.is_image%>
+  <% if @user_file.file_image? && @user_file.is_video %>
+    <video controls="" name="media"><source src=<%= @user_file.file_image.url %> type="video/mp4"></video>
+  <% end %>
+  <% if @user_file.file_image? && @user_file.is_pdf %>
+    <iframe src=<%= @user_file.file_image.url %> width="800" height="1000" style="border: none;"> </iframe>
+  <% end %>
+</p>
+
+<p>
+  <a href=<%= @user_file.file_image.url %> download>Скачать</a>
+</p>
+
+<%= link_to 'Вернуться', user_files_path %>

@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/cloud_archive
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - ftp 
+  ftp:
+    image: hauptmedia/proftpd
+    ports:
+      - "21:21"
+      - "20:20"
+    environment:
+      - FTP_USERNAME=admin
+      - FTP_PASSWORD=123456
